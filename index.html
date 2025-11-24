@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+		<title>JS</title>
+	</head>
+	
+	<body>
+		<h1>Having fun with JS - log in screen</h1>
+		
+		<div id="mainScreen">
+			<label>Your user name</label><br>
+			<input id="userName" type="text"><br>
+			<button onclick="authenticateMe();">Log in</button>
+		</div>
+		
+		<div id="success">
+			<p id="message"></p>
+			<button onclick="logout();">Log out</button>
+		</div>
+		<script>
+			document.getElementById("success").style.display = "none";
+						
+			function authenticateMe(){
+				var sUserName = document.getElementById("userName").value;
+				document.getElementById("mainScreen").style.display = "none";
+				document.getElementById("success").style.display = "block";
+				
+				var sMessage = "You are now authenticated " + sUserName			
+				document.getElementById("message").innerHTML = sMessage;
+			}
+			
+			function logout(){
+				document.getElementById("mainScreen").style.display = "block";
+				document.getElementById("success").style.display = "none";		
+				document.getElementById("userName").value = "";
+			}
+
+		</script>				
+	</body>
+
+</html>
