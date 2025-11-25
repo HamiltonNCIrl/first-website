@@ -22,7 +22,7 @@
 		
 		<div id="success">
 			<p id="message"></p>
-			<img src="images/thumbsup.jpg" alt="thumbs up"><br>
+			<img id="myImg" src="https://picsum.photos/200/300" alt="random image"><br>
 			<button onclick="logout();">Log out</button>
 		</div>
 		<script>
@@ -52,13 +52,9 @@
 			}
 						
 			function logout(){
-				document.getElementById("mainScreen").style.display = "block";
-				document.getElementById("success").style.display = "none";		
-				document.getElementById("userName").value = "";
-				document.getElementById("email").value = "";
-				document.getElementById("password").value = "";
-				myTargetElementBtn.disabled = true;
+				window.location.reload();
 			}
+			
 
 		</script>				
 	</body>
