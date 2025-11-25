@@ -1,62 +1,49 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 	<head>
-		<title>JS</title>
-		<link rel="stylesheet" href="css/style.css">
+		<title>JS is great</title>
+		<link href="style.css" rel="stylesheet">
 	</head>
-	
 	<body>
-		<h1>Having fun with JS - log in screen</h1>
-		
-		<div id="mainScreen">
-			<label>Your user name</label><br>
-			<input onkeyup="validateData();" id="userName" type="text" /><br>
-			<label>Your email address</label><br>
-			<input onkeyup="validateData();" id="email" type="email" /><br>
-			<label>Your password</label><br>
-			<input onkeyup="validateData();" id="password" type="password" /><br>
-			<button id="myBtn" onclick="authenticateUser();" disabled>Log in</button>
+		<div id="loginScreen">
+			<label>User name</label>
+			<input onkeyup="validateData();" id="userName" type="text">
+			<button id="myBtn" onclick="authenticate();" disabled>Login</button>
 		</div>
-		
-		<div id="success">
-			<p id="message"></p>
-			<img id="myImg" src="https://picsum.photos/200/300" alt="random image"><br>
-			<button onclick="logout();">Log out</button>
-		</div>
-		<script>
-			document.getElementById("success").style.display = "none";
-			var myTargetElementBtn = document.getElementById("myBtn");
-			var sUserName, sEmail, sPassword;
-			
-			function validateData(){
-				sUserName = document.getElementById("userName").value;
-				sEmail = document.getElementById("email").value;
-				sPassword = document.getElementById("password").value;
-				
-				//NOT = 0, false, "", undefined, null -> TRUE
-				if(sUserName.length > 2 && sEmail.length > 2 && sPassword.length > 2){
-					myTargetElementBtn.disabled = false;
-				}else{
-					myTargetElementBtn.disabled = true;
-				}
-			}
-			
-			function authenticateUser(){
-				document.getElementById("mainScreen").style.display = "none";
-				document.getElementById("success").style.display = "block";
-				
-				var sMessage = "You are now authenticated " + sUserName + ", your email address is " + sEmail + " and password " + sPassword + "!";
-				document.getElementById("message").innerHTML = sMessage;			
-			}
-						
-			function logout(){
-				window.location.reload();
-			}
-			
 
-		</script>				
+		<div id="mainScreen" hidden>
+			<h3 id="message"></h3>
+			<button onclick="logout();">Logout</button>
+		</div>
+
+	<script>
+		var sUserName, targetElementMessage, targetElementLogin, targetElementMain, targetElementBtn;
+		function validateData(){
+			sUserName = document.getElementById("userName").value;
+			targetElementMessage = document.getElementById("message");
+			targetElementLogin = document.getElementById("loginScreen");
+			targetElementMain = document.getElementById("mainScreen");
+			targetElementBtn = document.getElementById("myBtn");
+			
+			//NOT = 0, false, "", null, undefined -> true
+			if(sUserName.length > 2){
+				targetElementBtn.disabled = false;
+			}else{
+				targetElementBtn.disabled = true;
+			}
+		}
+		
+		function authenticate(){
+			targetElementMessage.innerHTML = "Hello " + sUserName + ", you are authenticated!";
+			targetElementLogin.style.display = "none";
+			targetElementMain.style.display = "block";		
+		}
+		
+		function logout(){
+			document.getElementById("userName").value = "";
+			targetElementLogin.style.display = "block";
+			targetElementMain.style.display = "none";				
+		}
+	</script>
 	</body>
-
 </html>
