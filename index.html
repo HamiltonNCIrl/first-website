@@ -1,53 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>JS is great</title>
-		<link href="style.css" rel="stylesheet">
+		<title>Form example</title>
+		<link href="css/style.css" rel="stylesheet">
 	</head>
 	<body>
-		<div id="loginScreen">
-			<label>User name</label>
-			<input onkeyup="validateData();" id="userName" type="text">
-			<button id="myBtn" onclick="authenticate();" disabled>Login</button><br>
-			<!-- get random image from https://picsum.photos/200/300 -->
-			<img src="https://picsum.photos/200/300" alt="random image">
-			
-			
-		</div>
-
-		<div id="mainScreen" hidden>
-			<h3 id="message"></h3>
-			<button onclick="logout();">Logout</button>
-		</div>
-
+		<h1>REGISTRATION FORM</h1>
+		<form name="RegForm" onsubmit="return validateForm()" onreset="resetErrors()">
+		<!-- the buttons types below relate to the onsubmit and onreset here. --> 
+		<!-- return will mean that we get true or false returned, this will stop the activity of processing the form until true is returned. However we are not set up to process the form. -->
+		
+			<p>
+				<label for="name">Name:</label>
+				<input type="text" id="name" name="Name" placeholder="Enter your full name" />
+				<span id="name-error" class="error-message"></span>
+			</p>
+			<p>
+				<label for="address">Address:</label>
+				<input type="text" id="address" name="Address" placeholder="Enter your address" />
+				<span id="address-error" class="error-message"></span>
+			</p>
+			<p>
+				<label for="email">E-mail Address:</label>
+				<input type="text" id="email" name="EMail" placeholder="Enter your email" />
+				<span id="email-error" class="error-message"></span>
+			</p>
+			<p>
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="Password" />
+				<span id="password-error" class="error-message"></span>
+			</p>
+			<p>
+				<label for="subject">Select Your Course:</label>
+				<select id="subject" name="Subject">
+					<option value="">Select Course</option>
+					<option value="BSHC">BSHC</option>
+					<option value="BSHDS">BSHDS</option>
+					<option value="HCCOMP">HCCOMP</option>
+					<option value="HCDS">HCDS</option>
+				</select>
+				<span id="subject-error" class="error-message"></span>
+			</p>
+			<p>
+				<label for="comment">College Name:</label>
+				<textarea id="comment" name="Comment"></textarea>
+			</p>
+			<p>
+				<input type="checkbox" id="agree" name="Agree" />
+				<label for="agree">I agree to the above information</label>
+				<span id="agree-error" class="error-message"></span>
+			</p>
+			<p>
+				<!-- <input type="submit" value="Send" name="Submit" />
+				<input type="reset" value="Reset" name="Reset" /> -->
+				<button type="submit">submit</button>
+				<button type="reset">reset</button>
+			</p>
+		</form>
+    <!-- <script src="external.js"></script> --> <!-- either work -->
 	<script>
-		var sUserName, targetElementMessage, targetElementLogin, targetElementMain, targetElementBtn;
-		function validateData(){
-			sUserName = document.getElementById("userName").value;
-			targetElementMessage = document.getElementById("message");
-			targetElementLogin = document.getElementById("loginScreen");
-			targetElementMain = document.getElementById("mainScreen");
-			targetElementBtn = document.getElementById("myBtn");
+		var bFormIsValid = true;
+		var targetUserName = document.getElementById("name");
+		var targetAddress = document.getElementById("address");
+		var targetNameError = document.getElementById("name-error");
+		var targetAddressError = document.getElementById("address-error");
+
+	
+		function validateForm(){
+			var sUserName = targetUserName.value;
+			var sAddress = targetAddress.value;
 			
-			//NOT = 0, false, "", null, undefined -> true
-			if(sUserName.length > 2){
-				targetElementBtn.disabled = false;
+			if(sUserName.length < 3){
+				targetNameError.innerHTML = "Please enter your name properly.";
+				bFormIsValid = false;
 			}else{
-				targetElementBtn.disabled = true;
+				targetNameError.innerHTML = "";
 			}
+
+			if(sAddress.length < 3){
+				targetAddressError.innerHTML = "Please enter your address properly.";
+				bFormIsValid = false;
+			}else{
+				targetAddressError.innerHTML = "";
+			}
+			
+			
+			return bFormIsValid;
 		}
-		
-		function authenticate(){
-			targetElementMessage.innerHTML = "Hello " + sUserName + ", you are authenticated now!";
-			targetElementLogin.style.display = "none";
-			targetElementMain.style.display = "block";		
-		}
-		
-		function logout(){
-			document.getElementById("userName").value = "";
-			targetElementLogin.style.display = "block";
-			targetElementMain.style.display = "none";				
-		}
-	</script>
-	</body>
+        
+    </script>
+</body>
 </html>
